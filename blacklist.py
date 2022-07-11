@@ -14,15 +14,15 @@ class Scraper:
         self.lines = requests.get(self.url).text  # scrapes the text from the raw url link and assigns it to lines
 
     def filterText(self):
+        self.lines = [line + '\n' for line in self.lines.split('\n') if line]
+        # splits the file into individual lines, then adds back the \n delimiter to preserve formatting
+        # uses list comprehension
         for index in range(100):
             if self.lines[0][0] == '#':
                 self.lines.pop(0)
                 # checks if the first item of the list has a #, then pops it from list if true to remove comments
             else:
                 break  # breaks upon reaching first IP
-            self.lines = [line + '\n' for line in self.lines.split('\n') if line]
-            # splits the file into individual lines, then adds back the \n delimiter to preserve formatting
-            # uses list comprehension
 
     def createFile(self):
         filename = f"IPList {self.currentTime}.txt"  # creates a dynamic filename using time
@@ -43,7 +43,7 @@ if os.path.exists(configPath):  # checks if config file exists and sets a defaul
 else:
     scrape = Scraper("https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset")
 
-    
+
 scrape.getText()
 scrape.filterText()
 scrape.createFile()
