@@ -1,5 +1,5 @@
 # IP-Blacklist-Scraper
-Scrapes the FireHol Github and converts IPs into plaintext
+Scrapes the firehol Github and converts IPs into plain text
 
 ## **Configuration**
 
